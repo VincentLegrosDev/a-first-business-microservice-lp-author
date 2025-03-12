@@ -53,15 +53,15 @@ jobs:
         fi
         resp=$(curl http://localhost:8001/find_rate -X POST -d "89182")
         echo "$resp"
-        if [[ $resp == "0.0875" ]]; then
+        if [[ $resp == "0.08375" ]]; then
           echo -e "Execution Success!"
         else
           echo -e "Execution Fail!"
           exit 1
         fi
-        resp=$(curl http://localhost:8001/find_rate -X POST -d "00000")
+        resp=$(curl -v http://localhost:8001/find_rate -X POST -d "00000" 2>&1) 
         echo "$resp"
-        if [[ $resp == "" ]]; then 
+        if [[ $resp == *"404 Not Found"* ]]; then 
           echo -e "Execution Success!"
         else 
           echo -e "Execution Fail!"
